@@ -37,7 +37,7 @@ body, h1, h2, ul, li, p {
   .carrinho_menu::after {
     content: "";
     display: inline-block;
-    background: url("./assets/carrinho.svg") no-repeat center center;
+    background: url("../assets/carrinho.svg") no-repeat center center;
     width: 25px;
     height: 25px;
     margin-left: 10px;

@@ -4,7 +4,21 @@ const vm = new Vue({
         return{
             produtos:[],//variavel que vai armazenar os dados sobre o produto
             produto:false,//responsavel pela exibição do modal do produto
+            //carrinhoTotal:0,//valor inicial do carrinho de compras
+            carrinho:[],//neste item vão estar os produtos add ao carinho
         }
+    },
+    computed:{
+        carrinhoTotal(){
+        //responsavel por computar o valor total de itens add ao carrinho
+        let total = 0
+        if(this.carrinho.length){
+            this.carrinho.forEach(item => {
+                total += item.preco
+            })
+        }
+        return total
+        } 
     },
     methods: {
         fetchProdutos(){
@@ -25,6 +39,16 @@ const vm = new Vue({
         },
         fecharModal({ target, currentTarget }) {
             if (target === currentTarget) this.produto = false;
+          },
+          adicionarItem(){
+              //responsavel p0or adicionar itens ao carrinho
+              this.produto.estoque--//removemos o numero de itens disponivel
+              const {id,nome,preco} = this.produto//desestruturamos em uma const as variaveis que queremos
+              this.carrinho.push({id,nome,preco})//add a var carrinho os nomes do produto
+          },
+          removerItem(index){//recebe como parametr o index do item add ao carrinho
+              //responsavel por remover os itens do carrinho
+              this.carrinho.splice(index,1)//apaga de acordo com o index informado
           }
     },
     created() {
