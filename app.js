@@ -22,7 +22,10 @@ const vm = new Vue({
             .then(resposta => {
                this.produto = resposta//atribuimos a var produto(no singular) o valor da requisição
             })
-        }
+        },
+        fecharModal({ target, currentTarget }) {
+            if (target === currentTarget) this.produto = false;
+          }
     },
     created() {
         //asim que a plicação for iniciada, o created ira chamar o methodo que faz a requisição a api
