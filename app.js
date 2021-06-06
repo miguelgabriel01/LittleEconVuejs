@@ -6,6 +6,10 @@ const vm = new Vue({
             produto:false,//responsavel pela exibição do modal do produto
             //carrinhoTotal:0,//valor inicial do carrinho de compras
             carrinho:[],//neste item vão estar os produtos add ao carinho
+            mensagemAlerta:'Item adicionado',
+            alertaAtivo:false,//valor que sera usado para iniciar o alerta
+
+            
         }
     },
     computed:{
@@ -45,7 +49,11 @@ const vm = new Vue({
               this.produto.estoque--//removemos o numero de itens disponivel
               const {id,nome,preco} = this.produto//desestruturamos em uma const as variaveis que queremos
               this.carrinho.push({id,nome,preco})//add a var carrinho os nomes do produto
-          },
+              
+              //aqui usamos o metodo de add uma msg ao alerta
+              this.alerta(`${nome} adicionado ao carrinho`)//passamos como parametro para a função a msg
+
+         },
           removerItem(index){//recebe como parametr o index do item add ao carrinho
               //responsavel por remover os itens do carrinho
               this.carrinho.splice(index,1)//apaga de acordo com o index informado
@@ -56,6 +64,16 @@ const vm = new Vue({
                   this.carrinho = JSON.parse(window.localStorage.carrinho)
                   //o JSON.parse transforma uma string em array
               }
+          },
+          alerta(mensagem){//recebe como parametro uma msg de acordo com a interação do usuario
+              //responsavel por modificar a msg do alerta
+              this.mensagemAlerta = mensagem//mensagem que é recebida como parametro
+              this.alertaAtivo = true//modifica o valor do alerta
+
+              //retirar o alerta da tela apos um certo tempo
+              setTimeout(() => {
+                  this.alertaAtivo = false
+              },3000)
           }
     },
     watch:{
