@@ -3,7 +3,7 @@ const vm = new Vue({
     data(){
         return{
             produtos:[],//variavel que vai armazenar os dados sobre o produto
-            produto:true,//responsavel pela exibição do modal do produto
+            produto:false,//responsavel pela exibição do modal do produto
         }
     },
     methods: {
