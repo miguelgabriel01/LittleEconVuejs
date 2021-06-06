@@ -49,11 +49,28 @@ const vm = new Vue({
           removerItem(index){//recebe como parametr o index do item add ao carrinho
               //responsavel por remover os itens do carrinho
               this.carrinho.splice(index,1)//apaga de acordo com o index informado
+          },
+          checarLocalStorage(){
+              //metodo responsavel por verificar se existem dados salvos no localStorage
+              if(window.localStorage.carrinho){
+                  this.carrinho = JSON.parse(window.localStorage.carrinho)
+                  //o JSON.parse transforma uma string em array
+              }
           }
+    },
+    watch:{
+     carrinho(){//sempre a propiedade é a qual vc quer avaliar se aconteceu mudanças
+      //responsavel por verificar se o carrinho aconteceu mudancas e salvar no nlocalStortage
+      window.localStorage.carrinho = JSON.stringify(this.carrinho)//maneira mais facil de salvar no localStorage n exitse 
+     //o JSON.stringtfy transforma um array em string
+    }
     },
     created() {
         //asim que a plicação for iniciada, o created ira chamar o methodo que faz a requisição a api
         this.fetchProdutos()//o metodo é chamado
+
+        //assim que o app for iniciado ele ira chamar a função que verifica se existem valores no localStorage
+        this.checarLocalStorage()//o metodo é chamado
     },
     filters:{
         //filtro criado para a validação do preco dos produtos
