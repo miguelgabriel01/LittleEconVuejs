@@ -18,4 +18,18 @@ const vm = new Vue({
         //asim que a plicação for iniciada, o created ira chamar o methodo que faz a requisição a api
         this.fetchProdutos()//o metodo é chamado
     },
+    filters:{
+        //filtro criado para a validação do preco dos produtos
+        numeropreco(valor){
+          //o valor passado como paraemtro é o dado que esta no html e que vai usar o filtro
+          //ex:
+          //{{produyo.preco}} = valor
+          //ou
+          //{{produto.marca}} = valor
+
+          return valor.toLocaleString('pt-BR',{style:"currency", currency: 'BRL'})
+        }
+    },
+
 })
+    
