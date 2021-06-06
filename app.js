@@ -74,9 +74,26 @@ const vm = new Vue({
               setTimeout(() => {
                   this.alertaAtivo = false
               },3000)
-          }
+          },
+          router(){
+              //responsavel por favor com que a url possa serr aberta em outras abas
+              const hash = document.location.hash
+              if(hash){
+                  this.fetchProduto(hash.replace('#',''))
+              }
+          } 
     },
     watch:{
+     produto(){
+      //responsavel por verificar se o preoduto foi alterado e mudar a url
+      
+      //alteramos o titulo da pagina
+      document.title = this.produto.nome || "tecnon"
+
+      //alteramos a url
+      const hash = this.produto.id
+      history.pushState(null,null, `#${hash}`)
+     },
      carrinho(){//sempre a propiedade é a qual vc quer avaliar se aconteceu mudanças
       //responsavel por verificar se o carrinho aconteceu mudancas e salvar no nlocalStortage
       window.localStorage.carrinho = JSON.stringify(this.carrinho)//maneira mais facil de salvar no localStorage n exitse 
@@ -89,6 +106,9 @@ const vm = new Vue({
 
         //assim que o app for iniciado ele ira chamar a função que verifica se existem valores no localStorage
         this.checarLocalStorage()//o metodo é chamado
+
+        //assim que iniciado, já podera pegar a rota 
+        this.router()
     },
     filters:{
         //filtro criado para a validação do preco dos produtos
